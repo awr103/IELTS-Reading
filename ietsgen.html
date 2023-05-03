@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>IELTS Reading Practice</title>
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		button {
+			margin-bottom: 20px;
+		}
+
+		#passage, #questions {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>IELTS Reading Practice</h1>
+	<button onclick="generatePassage()">Generate New Passage</button>
+	<div id="passage"></div>
+	<button onclick="showAnswers()">Show Answers</button>
+	<div id="questions"></div>
+	
+	<script>
+		// Define an array of possible passages and corresponding sets of questions
+		const passages = [
+			{
+				text: "Text of passage 1.",
+				questions: ["Question 1 for passage 1.", "Question 2 for passage 1.", "Question 3 for passage 1."]
+			},
+			{
+				text: "Text of passage 2.",
+				questions: ["Question 1 for passage 2.", "Question 2 for passage 2.", "Question 3 for passage 2."]
+			},
+			{
+				text: "Text of passage 3.",
+				questions: ["Question 1 for passage 3.", "Question 2 for passage 3.", "Question 3 for passage 3."]
+			}
+			// Add more passages and questions as needed
+		];
+
+		// Function to generate a random passage and questions
+		function generatePassage() {
+			// Get a random passage from the passages array
+			const randomPassage = passages[Math.floor(Math.random() * passages.length)];
+			
+			// Set the text of the passage
+			document.getElementById("passage").innerHTML = `<p>${randomPassage.text}</p>`;
+
+			// Set the text of the comprehension questions
+			let questionHTML = "";
+			randomPassage.questions.forEach((question, index) => {
+				questionHTML += `<p>${index + 1}. ${question}</p>`;
+			});
+			document.getElementById("questions").innerHTML = questionHTML;
+		}
+
+		// Function to show the answers to the questions
+		function showAnswers() {
+			// Get all of the question elements
+			const questionElements = document.getElementById("questions").getElementsByTagName("p");
+
+			// Loop through each question element and add the answer
+			for (let i = 0; i < questionElements.length; i++) {
+				const questionText = questionElements[i].textContent;
+				const answerText = `Answer to ${questionText}`;
+				questionElements[i].innerHTML += ` <span style="color: green;">${answerText}</span>`;
+			}
+		}
+	</script>
+</body>
+</html>
